@@ -1,0 +1,4 @@
+[flake8]
+ignore = E226,W503,E731
+exclude = tests/*,docs/*
+max-line-length = 80
