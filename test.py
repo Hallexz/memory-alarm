@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, Mock
 import alarm 
 
+
 class TestMemoryUsage(unittest.TestCase):
     @patch('psutil.Process')
     @patch('psutil.virtual_memory')
@@ -23,7 +24,7 @@ class TestMain(unittest.TestCase):
     @patch('your_module.send_alert')
     def test_main(self, mock_send_alert, mock_memory_usage):
         mock_memory_usage.return_value = 95
-        your_module.main()
+        alarm.main()
         mock_send_alert.assert_called_once_with(95)
 
 if __name__ == '__main__':
