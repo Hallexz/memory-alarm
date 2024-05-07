@@ -4,9 +4,11 @@ import alarm
 
 class TestMemoryUsage(unittest.TestCase):
     @patch('psutil.Process')
-    def test_memory_usage(self, mock_process):
+    @patch('psutil.virtual_memory')
+    def test_memory_usage(self, mock_virtual_memory, mock_process):
         mock_process.return_value.memory_info.return_value.rss = 1024
-        self.assertEqual(alarm.memory_usage(), 1024)
+        mock_virtual_memory.return_value.total = 2048
+        self.assertEqual(your_module.memory_usage(), 50)
 
 class TestSendAlert(unittest.TestCase):
     @patch('requests.post')
@@ -14,9 +16,15 @@ class TestSendAlert(unittest.TestCase):
         mock_response = Mock()
         mock_response.status_code = 200
         mock_post.return_value = mock_response
+        self.assertEqual(your_module.send_alert(1024), 200)
 
-        self.assertEqual(alarm.send_alert(1024), 200)
+class TestMain(unittest.TestCase):
+    @patch('your_module.memory_usage')
+    @patch('your_module.send_alert')
+    def test_main(self, mock_send_alert, mock_memory_usage):
+        mock_memory_usage.return_value = 95
+        your_module.main()
+        mock_send_alert.assert_called_once_with(95)
 
 if __name__ == '__main__':
     unittest.main()
-
