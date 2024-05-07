@@ -16,7 +16,7 @@ def send_alert(memory_used):
 def main():
     memory_used = memory_usage()
     print(f"Memory used: {memory_used}")
-    if memory_used > 2:
+    if memory_used > 90:
         send_alert(memory_used)
 
 if __name__ == "__main__":
