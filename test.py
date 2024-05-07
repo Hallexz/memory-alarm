@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
-import alarm 
+import alarm
 
 
 class TestMemoryUsage(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestSendAlert(unittest.TestCase):
         self.assertEqual(alarm.send_alert(1024), 200)
 
 class TestMain(unittest.TestCase):
-    @patch('your_module.memory_usage')
-    @patch('your_module.send_alert')
+    @patch('alarm.memory_usage')
+    @patch('alarm.send_alert')
     def test_main(self, mock_send_alert, mock_memory_usage):
         mock_memory_usage.return_value = 95
         alarm.main()
@@ -29,3 +29,4 @@ class TestMain(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
